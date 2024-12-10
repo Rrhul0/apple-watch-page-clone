@@ -3,22 +3,24 @@ import Link from 'next/link'
 import Image from 'next/image'
 import LogoImage from '../public/apple-watch-design-studio-logo.jpeg'
 import ChevronDown from './icons/chevronDown'
-import { useRef, useState } from 'react'
-import { Stage } from './constants'
+import { useRef } from 'react'
+// import { Stage } from './constants'
 import GreetingWatchCase from '../public/GreetingWatchCase.png'
 import GreetingWatchBand from '../public/GreetingWatchBand.jpeg'
 import { animate } from 'motion'
 
 export default function Home() {
-    const [stage, setStage] = useState<Stage>('intro')
+    // const [stage, setStage] = useState<Stage>('intro')
     const introImageWrapper = useRef<HTMLDivElement>(null)
     const introGreeting = useRef<HTMLDivElement>(null)
-    const footer = useRef<HTMLDivElement>(null)
     const pageRef = useRef<HTMLDivElement>(null)
+    const afterIntroHideRefs = useRef<
+        (HTMLHeadingElement | HTMLButtonElement | null)[]
+    >([])
+    const afterIntroShowRefs = useRef<(HTMLDivElement | null)[]>([])
 
     const onClickStart = () => {
         if (pageRef.current) pageRef.current.classList.add('hideIntro')
-
         if (introImageWrapper.current)
             animate(
                 introImageWrapper.current,
@@ -27,31 +29,19 @@ export default function Home() {
                     transform: 'scale(0.5)'
                 },
                 {
-                    duration: 1.5
-                }
-            )
-        if (introGreeting.current)
-            animate(
-                introGreeting.current,
-                {
-                    opacity: 0
-                },
-                {
-                    duration: 0.2
-                }
-            )
-        if (footer.current)
-            animate(
-                footer.current,
-                {
-                    opacity: 1
-                },
-                {
-                    duration: 0.2
+                    duration: 1,
+                    onComplete: () => {
+                        afterIntroHideRefs.current.forEach(ele =>
+                            ele?.setAttribute('aria-hidden', 'true')
+                        )
+                        afterIntroShowRefs.current.forEach(ele =>
+                            ele?.setAttribute('aria-hidden', 'true')
+                        )
+                    }
                 }
             )
 
-        setStage('sizes')
+        // setStage('sizes')
     }
 
     return (
@@ -87,6 +77,10 @@ export default function Home() {
                                 <h1
                                     tabIndex={-1}
                                     className='intro-headline'
+                                    aria-hidden='false'
+                                    ref={ref => {
+                                        afterIntroHideRefs.current[0] = ref
+                                    }}
                                 >
                                     <span role='text'>
                                         <span className='collectionname'>
@@ -108,6 +102,10 @@ export default function Home() {
                                     type='button'
                                     className='btn-getstarted button'
                                     onClick={onClickStart}
+                                    aria-hidden='false'
+                                    ref={ref => {
+                                        afterIntroHideRefs.current[1] = ref
+                                    }}
                                 >
                                     Get started
                                 </button>
@@ -136,7 +134,13 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className='collectionsContainer'>
+                <div
+                    className='collectionsContainer'
+                    aria-hidden='true'
+                    ref={ref => {
+                        afterIntroShowRefs.current[0] = ref
+                    }}
+                >
                     <button type='button'>
                         <div className='collectionsBlock'>
                             Collections
@@ -148,9 +152,12 @@ export default function Home() {
                 <div
                     className='save-btn-container'
                     aria-hidden='true'
+                    ref={ref => {
+                        afterIntroShowRefs.current[1] = ref
+                    }}
                 >
                     <button
-                        className='button'
+                        className='button savebtn'
                         type='button'
                     >
                         Save

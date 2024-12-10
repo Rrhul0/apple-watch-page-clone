@@ -103,7 +103,7 @@ button {
     z-index: 1;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.5s ease 1.5s, visibility 0.5s ease 1.5s;
+    transition: opacity 0.5s ease 1s, visibility 0.5s ease 1s;
 }
 
 .hideIntro .save-btn-container {
@@ -123,6 +123,11 @@ button {
 .greeting {
     margin: 0 auto;
     max-width: 43rem;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hideIntro .greeting {
+    opacity: 0;
 }
 
 .intro-headline {
@@ -210,5 +215,5 @@ button {
 
 .hideIntro .collectionsContainer {
     top: 29px;
-    transition: top 0.3s ease 1.5s;
+    transition: top 0.3s ease 1s;
 }
