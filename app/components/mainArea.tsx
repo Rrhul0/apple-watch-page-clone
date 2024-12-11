@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image'
 import ProductInfo from './productInfo'
 import { TStage } from '../constants'
+import { useStore } from 'zustand'
+import { activeFooterButtonStore } from '../store/store'
 
 const MainArea = ({
     type = 'intro',
@@ -15,6 +17,7 @@ const MainArea = ({
         sideViewImage: string
     }
 }) => {
+    const { setActiveButton } = useStore(activeFooterButtonStore)
     const onClickStart = () => {
         if (type !== 'intro') return
         const page = document.querySelector('.page')
@@ -47,11 +50,21 @@ const MainArea = ({
             getStarted.setAttribute('disabled', 'true')
         }
         const sideViewButton = document.querySelector('.sideViewBtn')
-        console.log(sideViewButton)
         if (sideViewButton) {
             sideViewButton.setAttribute('aria-hidden', 'false')
             sideViewButton.classList.remove('disabled')
             sideViewButton.removeAttribute('disabled')
+        }
+        const footerOptions = document.querySelector('.button-footer')
+        if (footerOptions) {
+            setTimeout(() => {
+                footerOptions.classList.add('show-peak')
+                setActiveButton('size')
+            }, 1500)
+            setTimeout(() => {
+                footerOptions.classList.remove('show-peak')
+                setActiveButton(null)
+            }, 3250)
         }
     }
 
