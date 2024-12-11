@@ -1,10 +1,13 @@
 import React from 'react'
+import { useStore } from 'zustand'
+import { watchStore } from '../store/store'
 
 const ProductInfo = () => {
+    const { data: selectedWatchData } = useStore(watchStore)
+
     const onClickSideView = (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
-        console.log('clicked', e.currentTarget.textContent)
         if (e.currentTarget.textContent === 'Side view') {
             e.currentTarget.textContent = 'Front view'
             document
@@ -34,15 +37,19 @@ const ProductInfo = () => {
                     aria-live='polite'
                     role='text'
                 >
-                    <div className='productcollection typography-caption'>
-                        {/*watch name*/}
+                    <div className='watchName typography-caption'>
+                        {selectedWatchData.watchName}
                     </div>
-                    <div className='producttitle'>
-                        {/*size*/} {/* caseName*/} with {/*bandName*/}
+                    <div className='watchTitle'>
+                        {selectedWatchData.size} {selectedWatchData.case} with{' '}
+                        {selectedWatchData.band}
                     </div>
-                    <div className='productprice'>
+                    <div className='watchPrice'>
                         <div className='pricepoint-fullPrice-comparative'>
-                            From <span className='nowrap'>{/*price*/}</span>
+                            From{' '}
+                            <span className='nowrap'>
+                                ${selectedWatchData.amount}
+                            </span>
                         </div>
                     </div>
                 </div>

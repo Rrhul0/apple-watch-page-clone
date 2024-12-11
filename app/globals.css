@@ -47,10 +47,13 @@ button {
 .page {
     position: relative;
     height: 100dvh;
+    font-size: 14px;
+    font-family: var(--font-sf-text-regular), var(--font-sf-display-regular),
+        var(--font-sf-icons-regular);
 }
 
 .home_logo {
-    font-family: var(--font-sf-display);
+    font-family: var(--font-sf-display-regular);
     display: block;
     position: absolute;
     top: 29px;
@@ -78,7 +81,7 @@ button {
     line-height: 1.26;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
-    font-family: var(--font-sf-text);
+    font-family: var(--font-sf-text-regular);
 }
 
 .visuallyhidden {
@@ -144,11 +147,11 @@ button {
     line-height: 1.17;
     min-width: 70px;
     letter-spacing: -0.022em;
-    font-family: var(--font-sf-text);
+    font-family: var(--font-sf-text-regular);
 }
 
 .collectionname {
-    font-family: var(--font-sf-display);
+    font-family: var(--font-sf-display-regular);
     font-size: 21px;
     line-height: 1.38;
     letter-spacing: 0.231;
@@ -161,7 +164,7 @@ button {
 .casemsg,
 .bandmsg,
 .stylemsg {
-    font-family: var(--font-sf-display);
+    font-family: var(--font-sf-display-semi-bold);
     letter-spacing: 0.576;
     font-size: 64px;
     line-height: 1.0625;
@@ -172,7 +175,6 @@ button {
 .imageWrapper {
     position: relative;
     top: 17vh;
-    transform: scale(1);
 }
 
 .combinedimage {
@@ -239,12 +241,13 @@ button {
 }
 
 .button-footer {
-    font-family: var(--font-sf-icon), var(--font-sf-text);
+    font-family: var(--font-sf-icons-regular), var(--font-sf-text-regular);
     color: #1d1d1f;
     background-color: #e8e8ed;
     opacity: 1;
     padding: 0 18px;
     margin: 0 6px;
+    font-size: 17px;
 }
 
 .btn-text {
@@ -266,6 +269,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: -1rem;
 }
 
 .hideIntro .productinfo {
@@ -290,6 +294,7 @@ button {
     vertical-align: top;
     background: none;
     text-decoration: underline;
+    padding: 0;
 }
 
 .showSideView .sideViewImage {
@@ -301,9 +306,40 @@ button {
 }
 
 .typography-caption {
-    font-family: var(--font-sf-text);
+    font-family: var(--font-sf-text-regular);
     font-size: 12px;
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.3333733333;
+}
+
+.watchName {
+    font-family: var(--font-sf-text-semi-bold);
+    color: #6e6e73;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.watchTitle {
+    font-family: var(--font-sf-text-semi-bold);
+    color: #1d1d1f;
+    display: -webkit-box;
+    font-weight: 600;
+    margin-bottom: 5px;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-size: 14px;
+    letter-spacing: -0.016em;
+    line-height: 1.4285914286;
+}
+
+.watchPrice {
+    font-family: var(--font-sf-text-regular);
+    color: #1d1d1f;
+    font-size: 14px;
+    letter-spacing: -0.016em;
+    line-height: 1.4285914286;
 }

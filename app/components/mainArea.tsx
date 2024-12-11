@@ -22,8 +22,7 @@ const MainArea = ({
         animate(
             '.combinedimage',
             {
-                // top: '-19vh',
-                transform: 'translateY(0) scale(1)'
+                transform: 'translateY(-2rem) scale(1)'
             },
             {
                 duration: 1
