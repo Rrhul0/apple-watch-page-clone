@@ -1,7 +1,3 @@
-export const STAGES = ['intro', 'sizes', 'cases', 'bands'] as const
-
-export type TStage = (typeof STAGES)[number]
-
 export type TypeOptions = Array<{
     label: string
     value: string
@@ -18,9 +14,9 @@ export const WATCHES: Array<{
         amount: string
     }
     availableOptions: {
-        sizes?: string[]
-        cases?: string[]
-        bands?: string[]
+        size?: string[]
+        case?: string[]
+        band?: string[]
     }
 }> = [
     {
@@ -33,9 +29,9 @@ export const WATCHES: Array<{
             amount: '429'
         },
         availableOptions: {
-            sizes: ['42', '46'],
-            cases: ['AL1', 'AL2', 'AL3', 'TI1', 'TI2', 'TI3'],
-            bands: [
+            size: ['42', '46'],
+            case: ['AL1', 'AL2', 'AL3', 'TI1', 'TI2', 'TI3'],
+            band: [
                 'SS1',
                 'SS2',
                 'SS3',
@@ -98,8 +94,8 @@ export const WATCHES: Array<{
             amount: '1249'
         },
         availableOptions: {
-            sizes: ['42', '46'],
-            cases: ['AL1', 'AL2', 'AL3', 'TI1', 'TI2', 'TI3']
+            size: ['42', '46'],
+            case: ['AL1', 'AL2', 'AL3', 'TI1', 'TI2', 'TI3']
         }
     },
     {
@@ -112,8 +108,8 @@ export const WATCHES: Array<{
             amount: '279'
         },
         availableOptions: {
-            sizes: ['40', '44'],
-            cases: ['AL4', 'AL5', 'AL1']
+            size: ['40', '44'],
+            case: ['AL4', 'AL5', 'AL1']
         }
     }
 ]

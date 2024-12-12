@@ -3,28 +3,32 @@ import BandIcon from '../icons/bandIcon'
 import SizesIcon from '../icons/sizesIcon'
 import CaseIcon from '../icons/caseIcon'
 import { useStore } from 'zustand'
-import { activeFooterButtonStore, watchStore } from '../store/store'
-import { BANDS, CASES, SIZES, WATCHES } from '../constants'
+import {
+    activeFooterButtonStore,
+    activeSectionStore,
+    watchStore
+} from '../store/store'
 import { findAvailableOptions } from '../utils/common'
 
 const Footer = () => {
     const { activeButton, setActiveButton } = useStore(activeFooterButtonStore)
+    const { setActiveSection } = useStore(activeSectionStore)
     const {
         data: { watchName }
     } = useStore(watchStore)
 
     const availableCases = findAvailableOptions({
         watchName,
-        optionName: 'cases'
+        optionName: 'case'
     })
 
     const availableBands = findAvailableOptions({
         watchName,
-        optionName: 'bands'
+        optionName: 'band'
     })
     const availableSizes = findAvailableOptions({
         watchName,
-        optionName: 'sizes'
+        optionName: 'size'
     })
 
     return (
@@ -40,7 +44,10 @@ const Footer = () => {
                 <button
                     type='button'
                     className='button-footer button'
-                    onClick={() => setActiveButton('size')}
+                    onClick={() => {
+                        setActiveButton('size')
+                        setActiveSection('size')
+                    }}
                 >
                     <div
                         className='btn-icon'
@@ -60,7 +67,10 @@ const Footer = () => {
                 <button
                     type='button'
                     className='button-footer button'
-                    onClick={() => setActiveButton('case')}
+                    onClick={() => {
+                        setActiveButton('case')
+                        setActiveSection('case')
+                    }}
                 >
                     <div
                         className='btn-icon'
@@ -80,7 +90,10 @@ const Footer = () => {
                 <button
                     type='button'
                     className='button-footer button'
-                    onClick={() => setActiveButton('band')}
+                    onClick={() => {
+                        setActiveButton('band')
+                        setActiveSection('band')
+                    }}
                 >
                     <div
                         className='btn-icon'

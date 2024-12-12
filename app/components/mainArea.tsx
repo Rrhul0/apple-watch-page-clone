@@ -1,108 +1,79 @@
-import { animate } from 'motion'
 import React from 'react'
 import Image from 'next/image'
 import ProductInfo from './productInfo'
-import { TStage } from '../constants'
 import { useStore } from 'zustand'
-import { activeFooterButtonStore } from '../store/store'
+import { activeSectionStore, watchStore } from '../store/store'
+import { findAvailableOptions, getImageUrl } from '../utils/common'
 
 const MainArea = ({
     type = 'intro',
     images: { caseImage, bandImage, sideViewImage }
 }: {
-    type: TStage
+    type: 'intro' | 'band' | 'case' | 'size'
     images: {
         caseImage: string
         bandImage: string
         sideViewImage: string
     }
 }) => {
-    const { setActiveButton } = useStore(activeFooterButtonStore)
-    const onClickStart = () => {
-        if (type !== 'intro') return
-        const page = document.querySelector('.page')
-        if (page) page.classList.add('hideIntro')
-        animate(
-            '.combinedimage',
-            {
-                transform: 'translateY(-2rem) scale(1)'
-            },
-            {
-                duration: 1
-            }
-        )
-        const footer = document.querySelector('.footerContainer')
-        if (footer) footer.setAttribute('aria-hidden', 'false')
-        const saveButton = document.querySelector('.save-btn-container')
-        if (saveButton) {
-            saveButton.setAttribute('aria-hidden', 'false')
-            saveButton.classList.remove('disabled')
-            saveButton.setAttribute('disabled', 'false')
-        }
-        const collections = document.querySelector('.collectionsContainer')
-        if (collections) collections.setAttribute('aria-hidden', 'false')
-        const greeting = document.querySelector('.intro-headline')
-        if (greeting) greeting.setAttribute('aria-hidden', 'true')
-        const getStarted = document.querySelector('.btn-getstarted')
-        if (getStarted) {
-            getStarted.setAttribute('aria-hidden', 'true')
-            getStarted.classList.add('disabled')
-            getStarted.setAttribute('disabled', 'true')
-        }
-        const sideViewButton = document.querySelector('.sideViewBtn')
-        if (sideViewButton) {
-            sideViewButton.setAttribute('aria-hidden', 'false')
-            sideViewButton.classList.remove('disabled')
-            sideViewButton.removeAttribute('disabled')
-        }
-        const footerOptions = document.querySelector('.button-footer')
-        if (footerOptions) {
-            setTimeout(() => {
-                footerOptions.classList.add('show-peak')
-                setActiveButton('size')
-            }, 1500)
-            setTimeout(() => {
-                footerOptions.classList.remove('show-peak')
-                setActiveButton(null)
-            }, 3250)
-        }
-    }
+    const {
+        data: { watchName, size }
+    } = useStore(watchStore)
+    const { activeSection } = useStore(activeSectionStore)
 
     return (
-        <div className='mainArea'>
-            {type === 'intro' && (
-                <div className='greetingWrapper'>
-                    <div className='greeting'>
-                        <h1
-                            tabIndex={-1}
-                            className='intro-headline'
-                            aria-hidden='false'
+        <div className={`mainArea horizontalPlatter`}>
+            {/* <div className='imageWrapper showFrontView'> */}
+            {type !== 'intro' && (
+                <div className='horizontalPlatter'>
+                    <div className='scroller-crop'>
+                        <div
+                            className='core-scroller'
+                            role='group'
+                            aria-label={`Choose your watch ${type}`}
                         >
-                            <span role='text'>
-                                <span className='collectionname'>
-                                    Apple Watch Studio
-                                </span>
-                                <span className='casemsg'>Choose a case.</span>
-                                <span className='bandmsg'>Pick a band.</span>
-                                <span className='stylemsg'>
-                                    Create your own style.
-                                </span>
-                            </span>
-                        </h1>
-                        <button
-                            tabIndex={0}
-                            type='button'
-                            className='btn-getstarted button'
-                            onClick={onClickStart}
-                            aria-hidden='false'
-                        >
-                            Get started
-                        </button>
+                            <div
+                                className='platter'
+                                role='radiogroup'
+                            >
+                                {findAvailableOptions({
+                                    watchName,
+                                    optionName: type
+                                }).map((option, index) => {
+                                    const imageUrl = getImageUrl(
+                                        [option.value, size],
+                                        type === 'case'
+                                    )
+                                    return (
+                                        <div
+                                            className='scroll-item'
+                                            key={index}
+                                        >
+                                            <button
+                                                type='button'
+                                                className='scroll-item-button'
+                                                role='radio'
+                                                aria-checked='false'
+                                                title='Apple Watch Case'
+                                            >
+                                                <Image
+                                                    src={imageUrl}
+                                                    width={500}
+                                                    height={500}
+                                                    alt='Apple Watch Case'
+                                                    className='testImage'
+                                                />
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
-            <div className='imageWrapper showFrontView'>
-                <div className='combinedimage'>
+            <div className='combinedimage'>
+                {type !== 'case' && (
                     <Image
                         src={caseImage}
                         width={500}
@@ -110,6 +81,8 @@ const MainArea = ({
                         alt='Apple Watch Case'
                         className='watchCase'
                     />
+                )}
+                {type !== 'band' && (
                     <Image
                         src={bandImage}
                         width={500}
@@ -117,17 +90,18 @@ const MainArea = ({
                         alt='Apple Watch Case'
                         className='watchBand'
                     />
-                </div>
-                <Image
-                    src={sideViewImage}
-                    width={500}
-                    height={500}
-                    alt='Apple Watch Side View'
-                    className='sideViewImage'
-                    aria-hidden='true'
-                />
-                <ProductInfo />
+                )}
             </div>
+            <Image
+                src={sideViewImage}
+                width={500}
+                height={500}
+                alt='Apple Watch Side View'
+                className='sideViewImage'
+                aria-hidden='true'
+            />
+            <ProductInfo />
+            {/* </div> */}
         </div>
     )
 }

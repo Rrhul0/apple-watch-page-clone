@@ -7,6 +7,11 @@ html,
 body {
     max-width: 100vw;
     overflow-x: hidden;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    line-height: 1.4705882353;
 }
 
 body {
@@ -47,7 +52,6 @@ button {
 .page {
     position: relative;
     height: 100dvh;
-    font-size: 14px;
     font-family: var(--font-sf-text-regular), var(--font-sf-display-regular),
         var(--font-sf-icons-regular);
 }
@@ -71,6 +75,28 @@ button {
     width: 100%;
 }
 
+.mainArea {
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    bottom: 0;
+    height: 100%;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.exiting,
+.entering {
+    /* display: none; */
+    opacity: 0;
+}
+
+.exitDone {
+    display: none;
+}
+
+.intro.hideSection .mainArea {
+    z-index: -999;
+}
 .button {
     display: inline-block;
     padding: 8px 15px;
@@ -226,6 +252,7 @@ button {
     width: 100%;
     opacity: 0;
     overflow: hidden;
+    z-index: 2;
 }
 
 .hideIntro .footerContainer {
@@ -428,4 +455,71 @@ button {
 label:has(input:checked) {
     font-weight: 600;
     font-family: var(--font-sf-text-semi-bold);
+}
+
+.scroller-crop {
+    height: 53vh;
+    max-height: 508px;
+    min-height: 314px;
+    overflow-y: hidden;
+}
+
+.core-scroller {
+    overflow-y: hidden;
+    padding-bottom: 20px;
+    scroll-snap-type: none;
+    z-index: 1;
+    overflow-x: scroll;
+    position: relative;
+}
+
+.scroll-item {
+    scroll-snap-align: center;
+    transition: transform 0.25s ease 0.2s, opacity 0.5s ease 0.2s;
+    display: inline-block;
+}
+
+.platter {
+    max-height: 592px;
+    padding-inline-start: calc(50vw - 156px);
+    white-space: nowrap;
+}
+
+.testImage {
+    height: auto;
+    max-width: 500px;
+    width: 52vh;
+    height: 52vh;
+    max-height: 500px;
+    margin-inline-start: calc(-26vh + 156px);
+}
+
+.scroll-item-button {
+    background: none;
+    border: 0;
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    white-space: normal;
+    width: 312px;
+    font-size: 17px;
+    line-height: 25px;
+}
+
+.horizontalPlatter {
+    position: relative;
+    top: 13vh;
+    z-index: 1;
+}
+
+.mat {
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    bottom: 0;
+    height: 100%;
+    transition: opacity 0.7s ease-in-out;
 }

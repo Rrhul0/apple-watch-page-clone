@@ -1,9 +1,9 @@
 import { BANDS, CASES, SIZES, TypeArrayOption, WATCHES } from '../constants'
 
 const OPTIONS = {
-    cases: CASES,
-    bands: BANDS,
-    sizes: SIZES
+    case: CASES,
+    band: BANDS,
+    size: SIZES
 }
 
 export const findAvailableOptions = ({
@@ -11,7 +11,7 @@ export const findAvailableOptions = ({
     optionName
 }: {
     watchName: string
-    optionName: 'cases' | 'bands' | 'sizes'
+    optionName: 'case' | 'band' | 'size'
 }) => {
     const watchData = WATCHES.find(watch => watch.value === watchName)
     const availableOptions = watchData?.availableOptions?.[optionName]
@@ -43,4 +43,12 @@ export const getName = (data: TypeArrayOption | undefined) => {
     return `${data.labelPrefix ?? ''} ${
         data.subLabel ? data.subLabel : data.label
     }`
+}
+
+export const getImageUrl = (name: string | string[], isCaseType: boolean) => {
+    const names = Array.isArray(name) ? name.join('+') : name
+    return `/${names
+        .split(' ')
+        .map(w => w.toLowerCase())
+        .join('_')}.${isCaseType ? 'png' : 'jpeg'}`
 }
