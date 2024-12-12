@@ -4,14 +4,28 @@ import SizesIcon from '../icons/sizesIcon'
 import CaseIcon from '../icons/caseIcon'
 import { useStore } from 'zustand'
 import { activeFooterButtonStore, watchStore } from '../store/store'
-import {
-    AVAILABLE_BAND_TYPES,
-    AVAILABLE_CASE_TYPES,
-    AVAILABLE_SIZES
-} from '../constants'
+import { BANDS, CASES, SIZES, WATCHES } from '../constants'
+import { findAvailableOptions } from '../utils/common'
 
 const Footer = () => {
     const { activeButton, setActiveButton } = useStore(activeFooterButtonStore)
+    const {
+        data: { watchName }
+    } = useStore(watchStore)
+
+    const availableCases = findAvailableOptions({
+        watchName,
+        optionName: 'cases'
+    })
+
+    const availableBands = findAvailableOptions({
+        watchName,
+        optionName: 'bands'
+    })
+    const availableSizes = findAvailableOptions({
+        watchName,
+        optionName: 'sizes'
+    })
 
     return (
         <div
@@ -39,7 +53,7 @@ const Footer = () => {
                     ) : (
                         <ExpendedOptions
                             valueName='Size'
-                            options={AVAILABLE_SIZES}
+                            options={availableSizes}
                         />
                     )}
                 </button>
@@ -59,7 +73,7 @@ const Footer = () => {
                     ) : (
                         <ExpendedOptions
                             valueName='Case'
-                            options={AVAILABLE_CASE_TYPES}
+                            options={availableCases}
                         />
                     )}
                 </button>
@@ -79,7 +93,7 @@ const Footer = () => {
                     ) : (
                         <ExpendedOptions
                             valueName='Band'
-                            options={AVAILABLE_BAND_TYPES}
+                            options={availableBands}
                         />
                     )}
                 </button>
@@ -95,31 +109,41 @@ const ExpendedOptions = ({
     options
 }: {
     valueName: string
-    options: string[]
+    options: { label: string; value: string; type: string; typeValue: string }[]
 }) => {
     const { data, changeAttribute } = useStore(watchStore)
-    const selectedOptionIndex = options.findIndex(option =>
-        data[valueName.toLowerCase() as keyof typeof data].includes(option)
-    )
+    const types = options.reduce((acc, { type, typeValue }) => {
+        acc[type] = typeValue
+        return acc
+    }, {} as Record<string, string>)
     return (
         <fieldset className='optionsFieldset'>
             <legend className='ally'>{valueName}</legend>
             <ul className='options'>
-                {options.map((option: string) => (
-                    <li key={option}>
+                {Object.entries(types).map(([type, typeValue]) => (
+                    <li key={typeValue + type}>
                         <label className='optionsLabel'>
                             <input
                                 type='radio'
-                                name={valueName}
+                                name={type}
                                 className='ally'
-                                value={option}
-                                checked={
-                                    selectedOptionIndex ===
-                                    options.indexOf(option)
-                                }
-                                onChange={() => {}}
+                                value={typeValue}
+                                checked={data[
+                                    valueName.toLowerCase() as keyof typeof data
+                                ].startsWith(typeValue)}
+                                onChange={() => {
+                                    changeAttribute(
+                                        valueName.toLowerCase() as
+                                            | 'case'
+                                            | 'band'
+                                            | 'size',
+                                        options.find(
+                                            op => op.typeValue === typeValue
+                                        )?.value ?? ''
+                                    )
+                                }}
                             />
-                            <span>{option}</span>
+                            <span>{type}</span>
                         </label>
                     </li>
                 ))}

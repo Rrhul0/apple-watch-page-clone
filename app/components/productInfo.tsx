@@ -1,6 +1,8 @@
 import React from 'react'
 import { useStore } from 'zustand'
 import { watchStore } from '../store/store'
+import { BANDS_ARRAY, CASES_ARRAY, SIZES_ARRAY, WATCHES } from '../constants'
+import { getName } from '../utils/common'
 
 const ProductInfo = () => {
     const { data: selectedWatchData } = useStore(watchStore)
@@ -21,6 +23,16 @@ const ProductInfo = () => {
         }
     }
 
+    const selectedBand = BANDS_ARRAY.find(
+        ({ value }) => value === selectedWatchData.band
+    )
+    const selectedCase = CASES_ARRAY.find(
+        ({ value }) => value === selectedWatchData.case
+    )
+    const selectedSize = SIZES_ARRAY.find(
+        ({ value }) => value === selectedWatchData.size
+    )
+
     return (
         <div className='wrapper'>
             <div className='productinfo'>
@@ -38,11 +50,16 @@ const ProductInfo = () => {
                     role='text'
                 >
                     <div className='watchName typography-caption'>
-                        {selectedWatchData.watchName}
+                        {
+                            WATCHES.find(
+                                watch =>
+                                    watch.value === selectedWatchData.watchName
+                            )?.label
+                        }
                     </div>
                     <div className='watchTitle'>
-                        {selectedWatchData.size} {selectedWatchData.case} with{' '}
-                        {selectedWatchData.band}
+                        {getName(selectedSize)} {getName(selectedCase)} with{' '}
+                        {getName(selectedBand)}
                     </div>
                     <div className='watchPrice'>
                         <div className='pricepoint-fullPrice-comparative'>

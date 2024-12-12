@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { WATCHES } from '../constants'
 
 interface StoreState {
     data: {
@@ -16,11 +17,8 @@ interface StoreState {
 
 export const watchStore = create<StoreState>(set => ({
     data: {
-        watchName: 'Apple Watch Series 10',
-        case: 'Jet Black Aluminum Case',
-        band: 'Black Solo Loop',
-        size: '46mm',
-        amount: '429'
+        watchName: 'S10',
+        ...WATCHES[0].defaultValues
     },
     changeAttribute: (attribute, value) =>
         set(state => ({

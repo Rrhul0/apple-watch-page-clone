@@ -14,7 +14,10 @@ const MainSections = () => {
                         [selectedWatchData.case, selectedWatchData.size],
                         'case'
                     ),
-                    bandImage: getImageUrl(selectedWatchData.band, 'band'),
+                    bandImage: getImageUrl(
+                        [selectedWatchData.band, selectedWatchData.size],
+                        'band'
+                    ),
                     sideViewImage: getImageUrl(
                         [
                             selectedWatchData.case,

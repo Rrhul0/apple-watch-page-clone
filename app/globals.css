@@ -372,7 +372,11 @@ button {
 .optionsFieldset label {
     cursor: pointer;
     display: inline-block;
-    padding: 4px 6px 3px 0px;
+    padding: 4px 6px 3px 7px;
+}
+
+.optionsFieldset li:first-child label {
+    padding-left: 0;
 }
 
 .options {
