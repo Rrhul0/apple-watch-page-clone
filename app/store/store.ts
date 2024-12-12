@@ -53,10 +53,10 @@ export const activeSectionStore = create<TypeActiveSectionState>(
         activeSection: 'intro',
         setActiveSection: section => {
             const activeSection = get().activeSection
+            if (activeSection === section) return
             const currentActiveSection = document.querySelector(
                 `.${activeSection}mat`
             )
-            console.log(currentActiveSection)
             if (currentActiveSection) {
                 currentActiveSection.classList.replace('enterDone', 'exiting')
                 setTimeout(() => {
@@ -67,7 +67,6 @@ export const activeSectionStore = create<TypeActiveSectionState>(
                 }, 1500)
             }
             const newActiveSection = document.querySelector(`.${section}mat`)
-            console.log(newActiveSection)
             if (newActiveSection) {
                 newActiveSection.classList.replace('exitDone', 'entering')
                 setTimeout(() => {

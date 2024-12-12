@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import ProductInfo from './productInfo'
 import { useStore } from 'zustand'
-import { activeSectionStore, watchStore } from '../store/store'
+import { watchStore } from '../store/store'
 import { findAvailableOptions, getImageUrl } from '../utils/common'
 
 const MainArea = ({
@@ -19,60 +19,60 @@ const MainArea = ({
     const {
         data: { watchName, size }
     } = useStore(watchStore)
-    const { activeSection } = useStore(activeSectionStore)
 
     return (
         <div className={`mainArea horizontalPlatter`}>
-            {/* <div className='imageWrapper showFrontView'> */}
             {type !== 'intro' && (
-                <div className='horizontalPlatter'>
-                    <div className='scroller-crop'>
+                <div className='scroller-crop'>
+                    <div
+                        className='core-scroller'
+                        role='group'
+                        aria-label={`Choose your watch ${type}`}
+                    >
                         <div
-                            className='core-scroller'
-                            role='group'
-                            aria-label={`Choose your watch ${type}`}
+                            className='platter'
+                            role='radiogroup'
                         >
-                            <div
-                                className='platter'
-                                role='radiogroup'
-                            >
-                                {findAvailableOptions({
-                                    watchName,
-                                    optionName: type
-                                }).map((option, index) => {
-                                    const imageUrl = getImageUrl(
-                                        [option.value, size],
-                                        type === 'case'
-                                    )
-                                    return (
-                                        <div
-                                            className='scroll-item'
-                                            key={index}
+                            {findAvailableOptions({
+                                watchName,
+                                optionName: type
+                            }).map((option, index) => {
+                                const imageUrl = getImageUrl(
+                                    [option.value, size],
+                                    type === 'case'
+                                )
+                                return (
+                                    <div
+                                        className='scroll-item'
+                                        key={index}
+                                    >
+                                        <button
+                                            type='button'
+                                            className='scroll-item-button'
+                                            role='radio'
+                                            aria-checked='false'
+                                            title='Apple Watch Case'
                                         >
-                                            <button
-                                                type='button'
-                                                className='scroll-item-button'
-                                                role='radio'
-                                                aria-checked='false'
-                                                title='Apple Watch Case'
-                                            >
-                                                <Image
-                                                    src={imageUrl}
-                                                    width={500}
-                                                    height={500}
-                                                    alt='Apple Watch Case'
-                                                    className='testImage'
-                                                />
-                                            </button>
-                                        </div>
-                                    )
-                                })}
-                            </div>
+                                            <Image
+                                                src={imageUrl}
+                                                width={500}
+                                                height={500}
+                                                alt='Apple Watch Case'
+                                                className='testImage'
+                                            />
+                                        </button>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
             )}
-            <div className='combinedimage'>
+            <div
+                className={`combinedimage ${
+                    type !== 'intro' ? ' stuckview stuckview' + type : ''
+                }`}
+            >
                 {type !== 'case' && (
                     <Image
                         src={caseImage}
@@ -101,7 +101,6 @@ const MainArea = ({
                 aria-hidden='true'
             />
             <ProductInfo />
-            {/* </div> */}
         </div>
     )
 }

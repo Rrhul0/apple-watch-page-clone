@@ -469,7 +469,7 @@ label:has(input:checked) {
     padding-bottom: 20px;
     scroll-snap-type: none;
     z-index: 1;
-    overflow-x: scroll;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -483,6 +483,11 @@ label:has(input:checked) {
     max-height: 592px;
     padding-inline-start: calc(50vw - 156px);
     white-space: nowrap;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+.platter::-webkit-scrollbar {
+    display: none;
 }
 
 .testImage {
@@ -522,4 +527,21 @@ label:has(input:checked) {
     bottom: 0;
     height: 100%;
     transition: opacity 0.7s ease-in-out;
+}
+
+.stuckview {
+    inset-inline-start: 50%;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.5s ease 0.2s;
+}
+
+.stuckviewcase {
+    z-index: -1;
+}
+
+.stuckviewband {
+    pointer-events: none;
+    z-index: 1;
 }
