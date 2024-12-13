@@ -88,14 +88,15 @@ export const WATCHES: Array<{
         label: 'Apple Watch Hermès Series 10',
         value: 'H10',
         defaultValues: {
-            size: '46mm',
-            case: 'TI1',
-            band: 'SL4',
-            amount: '1249'
+            size: '46',
+            case: 'TI4',
+            band: 'SGH1',
+            amount: '1949'
         },
         availableOptions: {
             size: ['42', '46'],
-            case: ['AL1', 'AL2', 'AL3', 'TI1', 'TI2', 'TI3']
+            case: ['TI4'],
+            band: ['HTH1', 'HTW1', 'HTW2', 'HK1', 'HK2', 'HK3', 'HGH1']
         }
     },
     {
@@ -289,6 +290,59 @@ export const BANDS: TypeOptions = [
             { value: 'NSB5', labelPrefix: 'Desert Stone' },
             { value: 'NSB6', labelPrefix: 'Kargo Khaki' },
             { value: 'NSB7', labelPrefix: 'Blue Flame' }
+        ]
+    },
+    {
+        label: 'Hermès Toile H',
+        value: 'HTH',
+        options: [
+            {
+                value: 'HTH1',
+                subLabel: 'Gold/Écru Toile H Single Tour'
+            }
+        ]
+    },
+    {
+        label: 'Hermès Twill',
+        value: 'HTW',
+        options: [
+            {
+                value: 'HTW1',
+                subLabel: 'Noir/Gold Twill Jump Attelage Single Tour'
+            },
+            {
+                value: 'HTW2',
+                subLabel:
+                    'Rouge Grenat/Vermillon Twill Jump Attelage Single Tour'
+            }
+        ]
+    },
+    {
+        label: 'Hermès Kilim',
+        value: 'HK',
+        options: [
+            {
+                value: 'HK1',
+                subLabel: 'Béton Kilim Single Tour'
+            },
+            {
+                value: 'HK2',
+                subLabel: 'Noir Kilim Single Tour'
+            },
+            {
+                value: 'HK3',
+                subLabel: 'Orange Kilim Single Tour'
+            }
+        ]
+    },
+    {
+        label: 'Hermès Grand H',
+        value: 'HGH',
+        options: [
+            {
+                value: 'HGH1',
+                subLabel: 'Satiné Grand H'
+            }
         ]
     }
 ]
