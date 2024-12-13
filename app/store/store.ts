@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { WATCHES } from '../constants'
-import { section } from 'motion/react-client'
 
 interface StoreState {
     data: {
@@ -14,6 +13,7 @@ interface StoreState {
         attribute: 'case' | 'band' | 'size',
         value: string
     ) => void
+    changeWatch: (watchName: string) => void
 }
 
 export const watchStore = create<StoreState>(set => ({
@@ -27,7 +27,18 @@ export const watchStore = create<StoreState>(set => ({
                 ...state.data,
                 [attribute]: value
             }
-        }))
+        })),
+    changeWatch: watchValue => {
+        const watch = WATCHES.find(watch => watch.value === watchValue)
+        if (watch) {
+            set(() => ({
+                data: {
+                    watchName: watchValue,
+                    ...watch.defaultValues
+                }
+            }))
+        }
+    }
 }))
 
 interface ActiveFooterButtonState {

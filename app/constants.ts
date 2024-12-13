@@ -85,7 +85,7 @@ export const WATCHES: Array<{
         }
     },
     {
-        label: 'APPLE WATCH HERMÈS SERIES 10',
+        label: 'Apple Watch Hermès Series 10',
         value: 'H10',
         defaultValues: {
             size: '46mm',

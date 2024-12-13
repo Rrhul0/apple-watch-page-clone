@@ -2,13 +2,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoImage from '../public/apple-watch-design-studio-logo.jpeg'
-import ChevronDown from './icons/chevronDown'
 import Footer from './components/footer'
 import MainArea from './components/mainSections'
+import CollectionsDrawer from './components/collectionsDrawer'
 
 export default function Home() {
-    // const [stage, setStage] = useState<Stage>('intro')
-
     return (
         <div>
             <div className='page'>
@@ -31,18 +29,7 @@ export default function Home() {
                 </div>
                 <MainArea />
                 <Footer />
-                <div
-                    className='collectionsContainer'
-                    aria-hidden='true'
-                >
-                    <button type='button'>
-                        <div className='collectionsBlock'>
-                            Collections
-                            <span className='visuallyhidden'>Apple Watch</span>
-                            <ChevronDown />
-                        </div>
-                    </button>
-                </div>
+                <CollectionsDrawer />
                 <div
                     className='save-btn-container'
                     aria-hidden='true'
