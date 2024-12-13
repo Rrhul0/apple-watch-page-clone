@@ -1,4 +1,3 @@
-import { animate } from 'motion'
 import React, { ReactNode } from 'react'
 import { useStore } from 'zustand'
 import { activeFooterButtonStore } from '../store/store'
@@ -9,15 +8,6 @@ const IntroBlock = ({ children }: { children: ReactNode }) => {
     const onClickStart = () => {
         const page = document.querySelector('.page')
         if (page) page.classList.add('hideIntro')
-        animate(
-            '.intromat .combinedimage',
-            {
-                transform: 'translateY(-2rem) scale(1)'
-            },
-            {
-                duration: 1
-            }
-        )
         const footer = document.querySelector('.footerContainer')
         if (footer) footer.setAttribute('aria-hidden', 'false')
         const saveButton = document.querySelector('.save-btn-container')
@@ -47,11 +37,11 @@ const IntroBlock = ({ children }: { children: ReactNode }) => {
             setTimeout(() => {
                 footerOptions.classList.add('show-peak')
                 setActiveButton('size')
-            }, 1500)
+            }, 2000)
             setTimeout(() => {
                 footerOptions.classList.remove('show-peak')
                 setActiveButton(null)
-            }, 3250)
+            }, 3600)
         }
     }
     return (

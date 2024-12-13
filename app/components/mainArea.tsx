@@ -36,7 +36,8 @@ const MainArea = ({
     }
 
     useEffect(() => {
-        if (type === 'intro') return
+        if (type === 'intro' || activeSection === 'intro') return
+        if (type !== activeSection) return
 
         const scroller = scrollerRef.current
         scroller?.addEventListener('scroll', handleScroll)

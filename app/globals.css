@@ -228,23 +228,65 @@ button {
 
 .footerContainer {
     position: absolute;
+    margin-top: 20px;
     bottom: 40px;
+    box-sizing: border-box;
     width: 100%;
     opacity: 0;
     overflow: hidden;
     z-index: 2;
+    padding-inline: 24px;
+    text-align: center;
+}
+
+@media only screen and (max-height: 770px) {
+    .footerContainer {
+        bottom: 0;
+    }
+}
+
+@media only screen and (min-device-width: 927px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .footerContainer {
+        bottom: 30px;
+        padding: 0;
+    }
+}
+
+@media only screen and (min-device-width: 390px) and (max-device-width: 926px) and (orientation: landscape) {
+    .footerContainer {
+        bottom: 0;
+        padding: 0;
+    }
+}
+
+@media (max-width: 1023px) and (max-device-width: 736px) {
+    .footerContainer {
+        bottom: 10px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 1023px) and (max-device-width: 736px) and (orientation: landscape) {
+    .footerContainer {
+        bottom: -5px;
+    }
 }
 
 .hideIntro .footerContainer {
     opacity: 1;
-    transition: opacity 0.3s ease 1s;
+    transition: opacity 0.5s ease-in-out 1.5s;
+    z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hideIntro .footerContainer {
+        transition: none;
+    }
 }
 
 .footer-filters {
-    display: flex;
-    justify-content: center;
-    /* height: 44px; */
-    margin-bottom: auto;
+    padding-bottom: 5px;
+    min-height: 60px;
 }
 
 .button-footer {
@@ -278,13 +320,13 @@ button {
 }
 
 .productinfo {
+    padding-top: 2vh;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out 1s;
+    transition: opacity 0.5s ease-in-out 1.5s;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -1rem;
 }
 
 .hideIntro .productinfo {
@@ -558,7 +600,68 @@ label:has(input:checked) {
 }
 
 .intro .combinedimage {
+    height: 53vh;
+    max-height: 29.8823529412rem;
+    min-height: 18.4705882353rem;
     transform: translateY(32rem) scale(2);
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .intro .combinedimage {
+        transform: translateY(146%) scale(2);
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .intro .combinedimage {
+        height: 46vh;
+        transform: translateY(164%) scale(2);
+    }
+}
+
+@media (max-width: 1023px) and (max-device-width: 736px) {
+    .intro .combinedimage {
+        height: 85vw;
+        max-height: none;
+        min-height: 0;
+        transform: translateY(474px) scale(1.7);
+    }
+}
+
+@media (max-width: 1023px) and (max-device-width: 736px) and (orientation: landscape) {
+    .intro .combinedimage {
+        height: 40vh;
+    }
+}
+
+@media only screen and (max-device-width: 414px) and (min-device-height: 896px) and (orientation: portrait) {
+    .intro .combinedimage {
+        transform: translateY(436px) scale(1.7);
+    }
+}
+
+@media only screen and (max-device-width: 320px) and (orientation: portrait) {
+    .intro .combinedimage {
+        height: 42vh;
+        transform: translateY(368px) scale(1.7);
+    }
+}
+
+@media only screen and (max-device-width: 320px) and (orientation: landscape) {
+    .intro .combinedimage {
+        height: 96px;
+    }
+}
+
+.hideIntro .intro .combinedimage {
+    transform: none;
+    transition: transform 1.2s ease-in-out 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hideIntro .intro .combinedimage {
+        transition: none;
+    }
 }
 
 .selected-item > button {
