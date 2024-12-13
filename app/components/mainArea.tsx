@@ -8,6 +8,7 @@ import {
     getClosestItem,
     getImageUrl
 } from '../utils/common'
+import SwipeNavigation from './swipeNavigation'
 
 const MainArea = ({
     type = 'intro'
@@ -20,24 +21,24 @@ const MainArea = ({
     const { watchName, size } = data
 
     const scrollerRef = useRef<HTMLDivElement>(null)
-    const handleScroll = (event: Event) => {
-        const ele = event.target as Element
-        if (type === 'intro') return
-        if (ele) {
-            const closestItem = getClosestItem({ scroller: ele })
-
-            if (closestItem) {
-                changeAttribute(
-                    type,
-                    closestItem.querySelector('button')?.id ?? ''
-                )
-            }
-        }
-    }
 
     useEffect(() => {
         if (type === 'intro' || activeSection === 'intro') return
         if (type !== activeSection) return
+
+        const handleScroll = (event: Event) => {
+            const ele = event.target as Element
+            if (ele) {
+                const closestItem = getClosestItem({ scroller: ele })
+
+                if (closestItem) {
+                    changeAttribute(
+                        type,
+                        closestItem.querySelector('button')?.id ?? ''
+                    )
+                }
+            }
+        }
 
         const scroller = scrollerRef.current
         scroller?.addEventListener('scroll', handleScroll)
@@ -45,11 +46,11 @@ const MainArea = ({
         return () => {
             scroller?.removeEventListener('scroll', handleScroll)
         }
-    }, [])
+    }, [activeSection, changeAttribute, type])
+
+    const value = type !== 'intro' && data[type]
 
     useEffect(() => {
-        if (type === 'intro' || activeSection === 'intro') return
-        if (type !== activeSection) return
         if (scrollerRef.current) {
             const selectedItem =
                 scrollerRef.current.querySelector('.selected-item')
@@ -64,7 +65,7 @@ const MainArea = ({
                 })
             }
         }
-    }, [type !== 'intro' && data[type], activeSection])
+    }, [value])
 
     return (
         <div className={`mainArea horizontalPlatter showFrontView`}>
@@ -97,8 +98,14 @@ const MainArea = ({
                                             type='button'
                                             className='scroll-item-button'
                                             role='radio'
-                                            aria-checked='false'
-                                            title='Apple Watch Case'
+                                            aria-checked={
+                                                option.value === data[type]
+                                                    ? 'true'
+                                                    : 'false'
+                                            }
+                                            title={
+                                                option.label + ' ' + option.type
+                                            }
                                             id={option.value}
                                             onClick={() =>
                                                 changeAttribute(
@@ -115,7 +122,12 @@ const MainArea = ({
                                                     )}
                                                     width={500}
                                                     height={500}
-                                                    alt='Apple Watch Case'
+                                                    alt={
+                                                        option.label +
+                                                        ' ' +
+                                                        option.type +
+                                                        ' case'
+                                                    }
                                                     className='scrollerImage image'
                                                 />
                                             )}
@@ -127,7 +139,12 @@ const MainArea = ({
                                                     )}
                                                     width={500}
                                                     height={500}
-                                                    alt='Apple Watch Case'
+                                                    alt={
+                                                        option.label +
+                                                        ' ' +
+                                                        option.type +
+                                                        ' band'
+                                                    }
                                                     className='scrollerImage image'
                                                 />
                                             )}
@@ -143,7 +160,10 @@ const MainArea = ({
                                                         )}
                                                         width={500}
                                                         height={500}
-                                                        alt='Apple Watch Case'
+                                                        alt={
+                                                            'Apple Watch Case ' +
+                                                            option.label
+                                                        }
                                                         className='watchCase image'
                                                     />
                                                     <Image
@@ -156,7 +176,10 @@ const MainArea = ({
                                                         )}
                                                         width={500}
                                                         height={500}
-                                                        alt='Apple Watch Case'
+                                                        alt={
+                                                            'Apple Watch Case' +
+                                                            option.label
+                                                        }
                                                         className='watchBand image'
                                                     />
                                                 </div>
@@ -169,6 +192,7 @@ const MainArea = ({
                     </div>
                 </div>
             )}
+            {type !== 'intro' && <SwipeNavigation type={type} />}
             {type !== 'size' && (
                 <div
                     className={`combinedimage ${
