@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Apple Watch Page Clone
 
-## Getting Started
+This project is a clone of the Apple Watch Studio page, allowing users to customize their Apple Watch by selecting different cases, bands, and sizes.
 
-First, run the development server:
+## Features
+
+-   Multiple watch options: Choose from a variety of Apple Watch models.
+-   Select different bands: Customize your watch with a wide range of bands.
+-   Choose case size for each watch: Pick the perfect case size for your wrist.
+-   View side profiles of the selected watch: See detailed side views of your customized watch. (**Not available for all selection for perpose of saving time**)
+-   Real-time customization preview: Instantly see changes as you customize.
+-   Responsive design for various devices: Enjoy a seamless experience on any device.
+-   Smooth animations and transitions: Experience fluid and engaging interactions.
+-   User-friendly interface: Navigate and customize with ease.
+-   High-quality images for better visualization: Get a clear and detailed view of your selections.
+-   Easy to navigate and use: Simple and intuitive design for all users.
+-   Optimized for performance: Fast and efficient customization process.
+-   Cross-browser compatibility: Works well on all major browsers.
+-   Accessibility features included: Designed to be accessible for all users.
+-   Regular updates and improvements: Continuously enhanced with new features.
+-   Detailed documentation: Comprehensive guide to help you get started.
+
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Project Structure](#project-structure)
+-   [Technologies Used](#technologies-used)
+-   [Contributing](#contributing)
+-   [License](#license)
+
+## Installation
+
+To get started with this project, clone the repository and install the dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Rrhul0/apple-watch-page-clone.git
+cd apple-watch-page-clone
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the project locally, use the following command:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+yarn dev
+```
 
-## Learn More
+This will start the development server at `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```plaintext
+.
+├── app
+│   ├── components
+│   ├── constants.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── store
+│       └── store.ts
+├── public
+│   └── {all images are here}
+├── .gitignore
+├── package.json
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+-   [Next.js](https://nextjs.org/)
+-   [React](https://reactjs.org/)
+-   [Zustand](https://github.com/pmndrs/zustand)
+-   CSS for styling
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome! Please open an issue or submit a pull request for any changes.
+
+## License
+
+This project is licensed under the MIT License.
