@@ -10,15 +10,9 @@ import {
 } from '../utils/common'
 
 const MainArea = ({
-    type = 'intro',
-    images: { caseImage, bandImage, sideViewImage }
+    type = 'intro'
 }: {
     type: 'intro' | 'band' | 'case' | 'size'
-    images: {
-        caseImage: string
-        bandImage: string
-        sideViewImage: string
-    }
 }) => {
     const { data, changeAttribute } = useStore(watchStore)
     const { activeSection } = useStore(activeSectionStore)
@@ -72,7 +66,7 @@ const MainArea = ({
     }, [type !== 'intro' && data[type], activeSection])
 
     return (
-        <div className={`mainArea horizontalPlatter`}>
+        <div className={`mainArea horizontalPlatter showFrontView`}>
             {type !== 'intro' && (
                 <div className='scroller-crop'>
                     <div
@@ -84,16 +78,11 @@ const MainArea = ({
                             className='platter'
                             role='radiogroup'
                             ref={scrollerRef}
-                            // onScroll={handleScroll}
                         >
                             {findAvailableOptions({
                                 watchName,
                                 optionName: type
                             }).map((option, index) => {
-                                const imageUrl = getImageUrl(
-                                    [option.value, size],
-                                    type === 'case'
-                                )
                                 return (
                                     <div
                                         className={`scroll-item ${
@@ -117,13 +106,60 @@ const MainArea = ({
                                                 )
                                             }
                                         >
-                                            <Image
-                                                src={imageUrl}
-                                                width={500}
-                                                height={500}
-                                                alt='Apple Watch Case'
-                                                className='testImage'
-                                            />
+                                            {type === 'case' && (
+                                                <Image
+                                                    src={getImageUrl(
+                                                        [option.value, size],
+                                                        true
+                                                    )}
+                                                    width={500}
+                                                    height={500}
+                                                    alt='Apple Watch Case'
+                                                    className='scrollerImage image'
+                                                />
+                                            )}
+                                            {type === 'band' && (
+                                                <Image
+                                                    src={getImageUrl(
+                                                        [option.value, size],
+                                                        false
+                                                    )}
+                                                    width={500}
+                                                    height={500}
+                                                    alt='Apple Watch Case'
+                                                    className='scrollerImage image'
+                                                />
+                                            )}
+                                            {type === 'size' && (
+                                                <div className='combinedimage'>
+                                                    <Image
+                                                        src={getImageUrl(
+                                                            [
+                                                                data.case,
+                                                                option.value
+                                                            ],
+                                                            true
+                                                        )}
+                                                        width={500}
+                                                        height={500}
+                                                        alt='Apple Watch Case'
+                                                        className='watchCase image'
+                                                    />
+                                                    <Image
+                                                        src={getImageUrl(
+                                                            [
+                                                                data.band,
+                                                                option.value
+                                                            ],
+                                                            false
+                                                        )}
+                                                        width={500}
+                                                        height={500}
+                                                        alt='Apple Watch Case'
+                                                        className='watchBand image'
+                                                    />
+                                                </div>
+                                            )}
                                         </button>
                                     </div>
                                 )
@@ -132,32 +168,37 @@ const MainArea = ({
                     </div>
                 </div>
             )}
-            <div
-                className={`combinedimage ${
-                    type !== 'intro' ? ' stuckview stuckview' + type : ''
-                }`}
-            >
-                {type !== 'case' && (
-                    <Image
-                        src={caseImage}
-                        width={500}
-                        height={500}
-                        alt='Apple Watch Case'
-                        className='watchCase'
-                    />
-                )}
-                {type !== 'band' && (
-                    <Image
-                        src={bandImage}
-                        width={500}
-                        height={500}
-                        alt='Apple Watch Case'
-                        className='watchBand'
-                    />
-                )}
-            </div>
+            {type !== 'size' && (
+                <div
+                    className={`combinedimage ${
+                        type !== 'intro' ? ' stuckview stuckview' + type : ''
+                    }`}
+                >
+                    {type !== 'case' && (
+                        <Image
+                            src={getImageUrl([data.case, size], true)}
+                            width={500}
+                            height={500}
+                            alt='Apple Watch Case'
+                            className='watchCase image'
+                        />
+                    )}
+                    {type !== 'band' && (
+                        <Image
+                            src={getImageUrl([data.band, size], false)}
+                            width={500}
+                            height={500}
+                            alt='Apple Watch Case'
+                            className='watchBand image'
+                        />
+                    )}
+                </div>
+            )}
             <Image
-                src={sideViewImage}
+                src={getImageUrl(
+                    ['sideview', data.case, data.band, size],
+                    false
+                )}
                 width={500}
                 height={500}
                 alt='Apple Watch Side View'

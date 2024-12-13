@@ -84,16 +84,6 @@ button {
     transition: opacity 0.7s ease-in-out;
 }
 
-.exiting,
-.entering {
-    /* display: none; */
-    opacity: 0;
-}
-
-.exitDone {
-    display: none;
-}
-
 .intro.hideSection .mainArea {
     z-index: -999;
 }
@@ -205,22 +195,12 @@ button {
 
 .combinedimage {
     height: 53vh;
-    transform: translateY(32rem) scale(2);
     max-height: 28rem;
     min-height: 18.5rem;
     max-width: 29.4117647059rem;
     min-width: 18.3529411765rem;
     width: 52vh;
     margin: 0 auto;
-    img {
-        width: 52vh;
-        min-width: 312px;
-        max-width: 500px;
-        height: 52vh;
-        min-height: 312px;
-        max-height: 500px;
-        aspect-ratio: 1;
-    }
 }
 
 .watchCase {
@@ -494,7 +474,16 @@ label:has(input:checked) {
     display: none;
 }
 
-.testImage {
+.image {
+    height: 53vh;
+    max-height: 500px;
+    min-height: 314px;
+    width: 52vh;
+    max-width: 500px;
+    min-width: 312px;
+}
+
+.scrollerImage {
     height: auto;
     max-width: 500px;
     width: 52vh;
@@ -533,6 +522,20 @@ label:has(input:checked) {
     transition: opacity 0.7s ease-in-out;
 }
 
+.enterDone {
+    opacity: 1;
+}
+
+.exiting,
+.entering {
+    opacity: 0;
+}
+
+.exitDone {
+    display: none;
+    opacity: 0;
+}
+
 .stuckview {
     inset-inline-start: 50%;
     position: absolute;
@@ -548,4 +551,16 @@ label:has(input:checked) {
 .stuckviewband {
     pointer-events: none;
     z-index: 1;
+}
+
+.scroll-item .combinedimage {
+    margin-inline-start: calc(-26vh + 156px);
+}
+
+.intro .combinedimage {
+    transform: translateY(32rem) scale(2);
+}
+
+.selected-item > button {
+    cursor: default;
 }
