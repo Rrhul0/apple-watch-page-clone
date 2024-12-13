@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import ProductInfo from './productInfo'
 import { useStore } from 'zustand'
-import { watchStore } from '../store/store'
-import { findAvailableOptions, getImageUrl } from '../utils/common'
+import { activeSectionStore, watchStore } from '../store/store'
+import {
+    findAvailableOptions,
+    getClosestItem,
+    getImageUrl
+} from '../utils/common'
 
 const MainArea = ({
     type = 'intro',
@@ -16,9 +20,56 @@ const MainArea = ({
         sideViewImage: string
     }
 }) => {
-    const {
-        data: { watchName, size }
-    } = useStore(watchStore)
+    const { data, changeAttribute } = useStore(watchStore)
+    const { activeSection } = useStore(activeSectionStore)
+
+    const { watchName, size } = data
+
+    const scrollerRef = useRef<HTMLDivElement>(null)
+    const handleScroll = (event: Event) => {
+        const ele = event.target as Element
+        if (type === 'intro') return
+        if (ele) {
+            const closestItem = getClosestItem({ scroller: ele })
+
+            if (closestItem) {
+                changeAttribute(
+                    type,
+                    closestItem.querySelector('button')?.id ?? ''
+                )
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (type === 'intro') return
+
+        const scroller = scrollerRef.current
+        scroller?.addEventListener('scroll', handleScroll)
+
+        return () => {
+            scroller?.removeEventListener('scroll', handleScroll)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (type === 'intro' || activeSection === 'intro') return
+        if (type !== activeSection) return
+        if (scrollerRef.current) {
+            const selectedItem =
+                scrollerRef.current.querySelector('.selected-item')
+            const closestItem = getClosestItem({
+                scroller: scrollerRef.current
+            })
+            if (selectedItem && selectedItem !== closestItem) {
+                selectedItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                })
+            }
+        }
+    }, [type !== 'intro' && data[type], activeSection])
 
     return (
         <div className={`mainArea horizontalPlatter`}>
@@ -32,6 +83,8 @@ const MainArea = ({
                         <div
                             className='platter'
                             role='radiogroup'
+                            ref={scrollerRef}
+                            // onScroll={handleScroll}
                         >
                             {findAvailableOptions({
                                 watchName,
@@ -43,7 +96,11 @@ const MainArea = ({
                                 )
                                 return (
                                     <div
-                                        className='scroll-item'
+                                        className={`scroll-item ${
+                                            option.value === data[type]
+                                                ? 'selected-item'
+                                                : ''
+                                        }`}
                                         key={index}
                                     >
                                         <button
@@ -52,6 +109,13 @@ const MainArea = ({
                                             role='radio'
                                             aria-checked='false'
                                             title='Apple Watch Case'
+                                            id={option.value}
+                                            onClick={() =>
+                                                changeAttribute(
+                                                    type,
+                                                    option.value
+                                                )
+                                            }
                                         >
                                             <Image
                                                 src={imageUrl}

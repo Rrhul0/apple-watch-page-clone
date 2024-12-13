@@ -479,6 +479,10 @@ label:has(input:checked) {
     display: inline-block;
 }
 
+.scroll-item:last-child {
+    padding-inline-end: calc(50vw - 156px);
+}
+
 .platter {
     max-height: 592px;
     padding-inline-start: calc(50vw - 156px);

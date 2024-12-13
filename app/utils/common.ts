@@ -52,3 +52,23 @@ export const getImageUrl = (name: string | string[], isCaseType: boolean) => {
         .map(w => w.toLowerCase())
         .join('_')}.${isCaseType ? 'png' : 'jpeg'}`
 }
+
+export const getClosestItem = ({ scroller }: { scroller: Element }) => {
+    const items = scroller.querySelectorAll('.scroll-item')
+    const scrollerRect = scroller.getBoundingClientRect()
+    let closestItem = null
+    let closestDistance = Infinity
+
+    items.forEach(item => {
+        const itemRect = item.getBoundingClientRect()
+        const itemCenter = itemRect.left + itemRect.width / 2
+        const scrollerCenter = scrollerRect.left + scrollerRect.width / 2
+        const distance = Math.abs(itemCenter - scrollerCenter)
+
+        if (distance < closestDistance) {
+            closestDistance = distance
+            closestItem = item
+        }
+    })
+    return closestItem as unknown as Element
+}
