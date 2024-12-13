@@ -30,7 +30,10 @@ export const watchStore = create<StoreState>(set => ({
         })),
     changeWatch: watchValue => {
         const watch = WATCHES.find(watch => watch.value === watchValue)
+
         if (watch) {
+            activeSectionStore.getState().setActiveSection('intro')
+            activeFooterButtonStore.getState().setActiveButton(null)
             set(() => ({
                 data: {
                     watchName: watchValue,
