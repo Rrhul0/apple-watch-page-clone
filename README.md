@@ -1,6 +1,6 @@
 # Apple Watch Page Clone
 
-This project is a clone of the Apple Watch Studio page, allowing users to customize their Apple Watch by selecting different cases, bands, and sizes.
+This project is a clone of the [Apple Watch Studio](https://www.apple.com/shop/studio/apple-watch) page, allowing users to customize their Apple Watch by selecting different cases, bands, and sizes.
 
 ## Features
 
@@ -19,6 +19,18 @@ This project is a clone of the Apple Watch Studio page, allowing users to custom
 -   Accessibility features included: Designed to be accessible for all users.
 -   Regular updates and improvements: Continuously enhanced with new features.
 -   Detailed documentation: Comprehensive guide to help you get started.
+
+## Features not added
+
+These listed features were not implemented due to enormous time taken by the project
+
+-   Saving and sharing the watch selected and modified
+
+-   Side view (partially added) saving all the images taking too much time
+
+-   Real time price
+
+## keys
 
 -   [Installation](#installation)
 -   [Usage](#usage)
