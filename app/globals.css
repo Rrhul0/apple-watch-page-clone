@@ -71,8 +71,9 @@ button {
 
 .mainSection {
     position: relative;
-    height: 100%;
+    height: auto;
     width: 100%;
+    min-height: 670px;
 }
 
 .mainArea {
@@ -87,6 +88,7 @@ button {
 .intro.hideSection .mainArea {
     z-index: -999;
 }
+
 .button {
     display: inline-block;
     padding: 8px 15px;
@@ -380,7 +382,6 @@ button {
 
 .watchTitle {
     font-family: var(--font-sf-text-semi-bold);
-    color: #1d1d1f;
     display: -webkit-box;
     font-weight: 600;
     margin-bottom: 5px;
@@ -388,6 +389,11 @@ button {
     -webkit-line-clamp: 3;
     line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.watchPrice,
+.watchTitle {
+    color: #1d1d1f;
     font-size: 14px;
     letter-spacing: -0.016em;
     line-height: 1.4285914286;
@@ -395,10 +401,6 @@ button {
 
 .watchPrice {
     font-family: var(--font-sf-text-regular);
-    color: #1d1d1f;
-    font-size: 14px;
-    letter-spacing: -0.016em;
-    line-height: 1.4285914286;
 }
 
 .ally {
@@ -518,19 +520,20 @@ label:has(input:checked) {
 
 .image {
     height: 53vh;
-    max-height: 500px;
     min-height: 314px;
+    min-width: 312px;
+}
+
+.image,
+.scrollerImage {
+    max-height: 500px;
     width: 52vh;
     max-width: 500px;
-    min-width: 312px;
 }
 
 .scrollerImage {
     height: auto;
-    max-width: 500px;
-    width: 52vh;
     height: 52vh;
-    max-height: 500px;
     margin-inline-start: calc(-26vh + 156px);
 }
 
@@ -566,15 +569,15 @@ label:has(input:checked) {
 
 .enterDone {
     opacity: 1;
+    position: relative;
 }
 
-.exiting,
-.entering {
+.entering,
+.exiting {
     opacity: 0;
 }
 
 .exitDone {
-    /* display: none; */
     opacity: 0;
     z-index: -10;
 }
@@ -597,6 +600,7 @@ label:has(input:checked) {
 }
 
 .scroll-item .combinedimage {
+    -webkit-margin-start: calc(-26vh + 156px);
     margin-inline-start: calc(-26vh + 156px);
 }
 
@@ -635,25 +639,6 @@ label:has(input:checked) {
     }
 }
 
-@media only screen and (max-device-width: 414px) and (min-device-height: 896px) and (orientation: portrait) {
-    .intro .combinedimage {
-        transform: translateY(436px) scale(1.7);
-    }
-}
-
-@media only screen and (max-device-width: 320px) and (orientation: portrait) {
-    .intro .combinedimage {
-        height: 42vh;
-        transform: translateY(368px) scale(1.7);
-    }
-}
-
-@media only screen and (max-device-width: 320px) and (orientation: landscape) {
-    .intro .combinedimage {
-        height: 96px;
-    }
-}
-
 .hideIntro .intro .combinedimage {
     transform: none;
     transition: transform 1.2s ease-in-out 0.4s;
@@ -684,7 +669,7 @@ label:has(input:checked) {
     width: 36px;
     z-index: 10;
     top: 50%;
-    margin-top: -220px;
+    margin-top: -92px;
 }
 
 .swipeArrow:disabled {
@@ -694,6 +679,7 @@ label:has(input:checked) {
 .next {
     inset-inline-end: 18px;
 }
+
 .prev {
     inset-inline-start: 18px;
 }
@@ -759,4 +745,28 @@ label:has(input:checked) {
 
 .collections li:last-child {
     border-bottom: none;
+}
+
+@media only screen and (min-height: 962px) {
+    .scrollerImage {
+        margin-inline-start: -94px;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+    .horizontalPlatter {
+        top: 82px;
+    }
+}
+
+@media only screen and (min-height: 950px) {
+    .horizontalPlatter {
+        top: 17vh;
+    }
+}
+
+@media only screen and (min-height: 1100px) {
+    .horizontalPlatter {
+        top: 21vh;
+    }
 }

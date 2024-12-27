@@ -58,8 +58,8 @@ const ProductInfo = () => {
                         }
                     </div>
                     <div className='watchTitle'>
-                        {getName(selectedSize)} {getName(selectedCase)} with{' '}
-                        {getName(selectedBand)}
+                        {getName(selectedSize)} {getName(selectedCase)} Case
+                        with {getName(selectedBand)}
                     </div>
                     <div className='watchPrice'>
                         <div className='pricepoint-fullPrice-comparative'>
